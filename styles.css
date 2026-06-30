@@ -214,6 +214,61 @@ body {
     white-space: nowrap;
 }
 
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.nav-social-link {
+    color: var(--color-text-light);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease, transform 0.2s ease;
+    margin-right: 5px;
+}
+
+.nav-social-link:hover {
+    color: var(--color-accent-orange);
+    transform: scale(1.15) rotate(8deg);
+}
+
+/* Floating Sidebar Social Link */
+.sidebar-socials {
+    position: fixed;
+    left: 25px;
+    bottom: 60px;
+    z-index: 99;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transform: rotate(-90deg);
+    transform-origin: left bottom;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: rgba(245, 245, 245, 0.4);
+    letter-spacing: 2px;
+    font-weight: 700;
+    user-select: none;
+    pointer-events: none;
+}
+
+.sidebar-socials a {
+    color: var(--color-accent-orange);
+    transition: color 0.2s ease, transform 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(90deg);
+    pointer-events: auto;
+}
+
+.sidebar-socials a:hover {
+    color: var(--color-text-light);
+    transform: rotate(90deg) scale(1.25);
+}
+
 .nav-menu {
     display: flex;
     gap: var(--space-md);
@@ -790,6 +845,25 @@ body {
     max-width: 500px;
 }
 
+.footer-socials {
+    display: flex;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
+}
+
+.footer-social-link {
+    color: rgba(245, 245, 245, 0.5);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-social-link:hover {
+    color: var(--color-accent-orange);
+    transform: translateY(-2px) scale(1.1);
+}
+
 .footer-col h4 {
     font-family: var(--font-heading);
     font-weight: 800;
@@ -866,6 +940,10 @@ body {
     :root {
         --space-xl: 4rem;
         --space-lg: 2rem;
+    }
+
+    .sidebar-socials {
+        display: none !important;
     }
     
     .header-inner {
