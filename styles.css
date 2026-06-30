@@ -207,10 +207,11 @@ body {
 .logo {
     font-family: var(--font-heading);
     font-weight: 900;
-    font-size: 1.8rem;
+    font-size: clamp(1.1rem, 3.5vw, 1.8rem);
     color: var(--color-text-light);
     text-decoration: none;
     letter-spacing: -1px;
+    white-space: nowrap;
 }
 
 .nav-menu {
