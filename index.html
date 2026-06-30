@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BSC // Bintaro Street Crew - Raw Skateboard Community</title>
+    <meta name="description" content="Official landing page of Bintaro Street Crew (BSC). Raw street skateboarding culture, decks, and local community in Bintaro. Anti-AI, brutalist aesthetic.">
+    <!-- Google Fonts: Syne (Brutalist Bold) & Anton (Heavy Bold) & Space Mono (Techy/Raw info) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- SVG Filters for Brutalist Grain & Halftone Effects -->
+    <svg class="svg-filters" style="position: absolute; width: 0; height: 0;" aria-hidden="true">
+        <filter id="street-grain">
+            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" result="noise" />
+            <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.15 0" />
+            <feComposite operator="in" in2="SourceGraphic" result="monoNoise" />
+            <feBlend mode="multiply" in="SourceGraphic" in2="monoNoise" />
+        </filter>
+        <filter id="distort-glitch">
+            <feTurbulence type="fractalNoise" baseFrequency="0.05 0.95" numOctaves="1" result="noise" />
+            <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="15" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+    </svg>
+
+    <!-- Noise Texture Overlay Page-Wide -->
+    <div class="grain-overlay"></div>
+
+    <!-- Navigation Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="#" class="logo" id="header-logo">
+                BINTARO<span class="orange-txt">SK8</span>BOARDING
+            </a>
+            <nav class="nav-menu">
+                <a href="#hero" class="nav-link">INFO</a>
+                <a href="#gear" class="nav-link">THE GEAR</a>
+                <a href="#crew" class="nav-link">THE CREW</a>
+            </nav>
+            <a href="#join" class="cta-btn mini-btn">
+                JOIN CREW <span class="arrow">→</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main>
+        
+        <!-- Hero Section (The Hook) -->
+        <section id="hero" class="hero-section">
+            <div class="hero-bg-container">
+                <div class="hero-overlay"></div>
+                <img src="assets/hero_bg.jpg" alt="Bintaro Skateboarder Doing Kickflip" class="hero-img">
+            </div>
+            
+            <div class="hero-content">
+                <div class="tagline-badge animate-random">BINTARO LOCAL STREET PATROL</div>
+                
+                <h1 class="hero-title">
+                    <span class="line-1"><span class="char">R</span><span class="char">A</span><span class="char">W</span><span class="char">.</span></span>
+                    <span class="line-2"><span class="char">S</span><span class="char">T</span><span class="char">R</span><span class="char">E</span><span class="char">E</span><span class="char">T</span><span class="char">.</span></span>
+                    <span class="line-3"><span class="char">B</span><span class="char">I</span><span class="char">N</span><span class="char">T</span><span class="char">A</span><span class="char">R</span><span class="char">O</span><span class="char">.</span></span>
+                </h1>
+                
+                <p class="hero-desc">
+                    Anti-symmetry. Pure pavement resistance. A collective of skateboarders disrupting Bintaro Sector 1 to 9. We don't build templates. We build chaos.
+                </p>
+                
+                <div class="hero-cta-wrapper">
+                    <a href="#gear" class="cta-btn main-btn">
+                        EXPLORE DECK <span class="arrow-xl">→</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Floating Street Tag Spray Painted Graphic -->
+            <div class="spray-stencil-text animate-random">BSC 199X</div>
+        </section>
+
+        <!-- Product Spotlight (The Gear) -->
+        <section id="gear" class="gear-section">
+            <div class="gear-header">
+                <h2 class="section-title">THE GEAR</h2>
+                <div class="stamp-label">PATROL SERIES // DECK 01</div>
+            </div>
+            
+            <div class="gear-container">
+                <!-- Specs Panel Left (Asymmetrical & Scattered) -->
+                <div class="specs-wrapper left-specs">
+                    <div class="spec-card spec-1" data-angle="-5">
+                        <span class="spec-num">01/</span>
+                        <h3>MAPLE WOOD</h3>
+                        <p>7-Ply premium Canadian hard rock maple, cold-pressed with epoxy resin for maximum pop.</p>
+                    </div>
+                    <div class="spec-card spec-2" data-angle="4">
+                        <span class="spec-num">02/</span>
+                        <h3>HIGH CONCAVE</h3>
+                        <p>Aggressive side curves designed for quick flip responsiveness and pocket control on street curbs.</p>
+                    </div>
+                </div>
+
+                <!-- Interactive 3D/Drag Deck Showcase -->
+                <div class="deck-showcase-container">
+                    <div class="deck-drag-zone">
+                        <div class="drag-hint">DRAG TO SCRATCH // ROTATE</div>
+                        <div class="deck-card-wrapper" id="deck-card">
+                            <div class="deck-shadow"></div>
+                            <img src="assets/deck_spotlight.jpg" alt="BSC Pro Deck Graphic" class="deck-image">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Specs Panel Right -->
+                <div class="specs-wrapper right-specs">
+                    <div class="spec-card spec-3" data-angle="-3">
+                        <span class="spec-num">03/</span>
+                        <h3>SHAPE 8.25"</h3>
+                        <p>The street sweetspot. Perfect balance of flip speed and landing surface stability.</p>
+                    </div>
+                    <div class="spec-card spec-4" data-angle="6">
+                        <span class="spec-num">04/</span>
+                        <h3>STREET GRIND</h3>
+                        <p>BSC protective top coat. Engineered to slide smoothly over rough Bintaro concrete ledges.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pro Team / Street Culture (The Credibility) -->
+        <section id="crew" class="crew-section">
+            <div class="crew-header">
+                <div class="stamp-label">STREET RIDERS</div>
+                <h2 class="section-title">NIBLA CREW</h2>
+                <p class="section-subtitle">Local riders representing Bintaro street skateboard culture. Shredding local gaps, parks, and spots.</p>
+            </div>
+
+            <!-- Skaters Collage Grid -->
+            <div class="crew-grid">
+                
+                <!-- Skater 1 -->
+                <div class="skater-card" id="skater-card-1">
+                    <div class="skater-img-wrapper border-torn-1">
+                        <img src="assets/skater_1.jpg" alt="Skater Rian - Bintaro" class="skater-img">
+                        <div class="torn-overlay"></div>
+                        <canvas class="doodle-canvas" id="canvas-1"></canvas>
+                    </div>
+                    <div class="skater-info">
+                        <span class="skater-role">STREET PATROL</span>
+                        <h3 class="skater-name">RIAN "NOISE"</h3>
+                        <p class="skater-bio">Sektor 9 local. Master of high speed gaps and rails. Board of choice: BSC Patrol 8.25.</p>
+                    </div>
+                </div>
+
+                <!-- Skater 2 -->
+                <div class="skater-card" id="skater-card-2">
+                    <div class="skater-img-wrapper border-torn-2">
+                        <img src="assets/skater_2.jpg" alt="Skater Arya - Bintaro" class="skater-img">
+                        <div class="torn-overlay"></div>
+                        <canvas class="doodle-canvas" id="canvas-2"></canvas>
+                    </div>
+                    <div class="skater-info">
+                        <span class="skater-role">LEDGE KILLER</span>
+                        <h3 class="skater-name">ARYA "CHAOS"</h3>
+                        <p class="skater-bio">Sektor 3 plaza local. Technical wizard. Can nosegrind anything in his path.</p>
+                    </div>
+                </div>
+
+                <!-- Skater 3 -->
+                <div class="skater-card" id="skater-card-3">
+                    <div class="skater-img-wrapper border-torn-3">
+                        <img src="assets/skater_3.jpg" alt="Skater Jess - Bintaro" class="skater-img">
+                        <div class="torn-overlay"></div>
+                        <canvas class="doodle-canvas" id="canvas-3"></canvas>
+                    </div>
+                    <div class="skater-info">
+                        <span class="skater-role">STREET WIZARD</span>
+                        <h3 class="skater-name">JESS "BRUTAL"</h3>
+                        <p class="skater-bio">Sektor 7 bowl & stair specialist. Aggressive style, heavy pop, no fear of gravel.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Community Callout (Join Section) -->
+        <section id="join" class="join-section">
+            <div class="join-box">
+                <div class="spray-stencil-text inner-stencil">BINTARO CRW</div>
+                <h2 class="join-title">NO TEMPLATES.<br>JUST RAW WOOD.</h2>
+                <p class="join-text">
+                    We roll every weekend at Sector 7 and local spots. No registration fee, no AI filters, no corporate nonsense. Bring your board, your scars, and your passion.
+                </p>
+                <div class="join-form-wrapper">
+                    <input type="email" placeholder="YOUR EMAIL // GET UPDATES" class="join-input">
+                    <button type="submit" class="cta-btn submit-btn">SUBSCRIBE</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-col brand-col">
+                <span class="footer-logo">BSC<span class="orange-txt">//</span>BXT</span>
+                <p class="footer-credo">BINTARO STREET CREW — Established in the cracks of concrete sidewalks. Keeping skate culture raw, ugly, and real since 199X.</p>
+            </div>
+            <div class="footer-col links-col">
+                <h4>SEKTOR BASE</h4>
+                <ul>
+                    <li><a href="#">SEKTOR 3 PLAZA</a></li>
+                    <li><a href="#">SEKTOR 7 BOWL</a></li>
+                    <li><a href="#">SEKTOR 9 CORNER</a></li>
+                </ul>
+            </div>
+            <div class="footer-col legal-col">
+                <h4>RESIST</h4>
+                <ul>
+                    <li><a href="#">NO TEMPLATES</a></li>
+                    <li><a href="#">RAW STREET</a></li>
+                    <li><a href="#">ANTI-AI DESIGN</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="copy-text">&copy; 2026 BINTARO STREET CREW. ALL CONCRETE SCARS RESERVED.</p>
+            <p class="tech-text">BUILT VIA RAW HTML/CSS/JS + GSAP</p>
+        </div>
+    </footer>
+
+    <!-- GSAP Libraries via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Custom Application Logic -->
+    <script src="app.js"></script>
+</body>
+</html>

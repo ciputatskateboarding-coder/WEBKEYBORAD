@@ -1,0 +1,923 @@
+/* ==========================================================================
+   RESET & SYSTEM INITIALIZATION
+   ========================================================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    /* Color Palette */
+    --color-bg-dark: #080808;
+    --color-bg-charcoal: #121212;
+    --color-secondary-green: #0A3C26;
+    --color-accent-orange: #FF5500;
+    --color-accent-orange-hover: #ff7733;
+    --color-text-light: #F5F5F5;
+    --color-text-dark: #121212;
+    --color-border-light: #F5F5F5;
+    --color-border-orange: #FF5500;
+    
+    /* Fonts */
+    --font-heading: 'Syne', sans-serif;
+    --font-display: 'Anton', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+    
+    /* Spacing */
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 2rem;
+    --space-lg: 4rem;
+    --space-xl: 8rem;
+}
+
+html {
+    scroll-behavior: smooth;
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-light);
+    font-family: var(--font-mono);
+    overflow-x: hidden;
+}
+
+body {
+    background-color: var(--color-bg-dark);
+    line-height: 1.6;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+/* ==========================================================================
+   RAW STREET TEXTURES & OVERLAYS
+   ========================================================================== */
+/* Grain/Noise Overlay */
+.grain-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.08;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Halftone / Dot Grid overlay helper */
+.halftone-bg {
+    background-image: radial-gradient(var(--color-bg-charcoal) 20%, transparent 20%),
+                      radial-gradient(var(--color-bg-charcoal) 20%, transparent 20%);
+    background-size: 12px 12px;
+    background-position: 0 0, 6px 6px;
+}
+
+/* Hide SVG filter container */
+.svg-filters {
+    width: 0;
+    height: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   COMMON BRUTALIST COMPONENTS & UTILITIES
+   ========================================================================== */
+.orange-txt {
+    color: var(--color-accent-orange);
+}
+
+.stamp-label {
+    font-family: var(--font-mono);
+    color: var(--color-accent-orange);
+    border: 1px dashed var(--color-accent-orange);
+    padding: 4px 10px;
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transform: rotate(-2deg);
+    margin-bottom: var(--space-sm);
+}
+
+.section-title {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 10vw, 7rem);
+    line-height: 0.85;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    margin-bottom: var(--space-md);
+    position: relative;
+    z-index: 5;
+}
+
+/* Aggressive CTA Buttons */
+.cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-accent-orange);
+    color: var(--color-text-light);
+    font-family: var(--font-heading);
+    font-weight: 800;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 3px solid var(--color-text-light);
+    padding: 12px 24px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                box-shadow 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                background-color 0.2s ease;
+    box-shadow: 6px 6px 0 0 var(--color-text-light);
+}
+
+.cta-btn:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 9px 9px 0 0 var(--color-text-light);
+    background-color: var(--color-accent-orange-hover);
+}
+
+.cta-btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: 3px 3px 0 0 var(--color-text-light);
+}
+
+.cta-btn.mini-btn {
+    font-size: 0.8rem;
+    padding: 8px 16px;
+    box-shadow: 4px 4px 0 0 var(--color-text-light);
+    border-width: 2px;
+}
+
+.cta-btn.mini-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 0 var(--color-text-light);
+}
+
+.cta-btn.main-btn {
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    padding: 20px 40px;
+    border-width: 4px;
+    box-shadow: 10px 10px 0 0 var(--color-text-light);
+}
+
+.cta-btn.main-btn:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 14px 14px 0 0 var(--color-text-light);
+}
+
+.arrow, .arrow-xl {
+    margin-left: 10px;
+    transition: transform 0.2s ease;
+}
+
+.cta-btn:hover .arrow {
+    transform: translateX(4px);
+}
+
+.cta-btn:hover .arrow-xl {
+    transform: translateX(8px);
+}
+
+/* ==========================================================================
+   NAVIGATION / HEADER
+   ========================================================================== */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background-color: rgba(8, 8, 8, 0.9);
+    border-bottom: 2px solid rgba(245, 245, 245, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.header-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--space-sm) var(--space-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 1.8rem;
+    color: var(--color-text-light);
+    text-decoration: none;
+    letter-spacing: -1px;
+}
+
+.nav-menu {
+    display: flex;
+    gap: var(--space-md);
+}
+
+.nav-link {
+    font-family: var(--font-mono);
+    color: var(--color-text-light);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    position: relative;
+    padding: 4px 0;
+    transition: color 0.2s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 3px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--color-accent-orange);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+.nav-link:hover {
+    color: var(--color-accent-orange);
+}
+
+.nav-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+/* ==========================================================================
+   HERO SECTION (THE HOOK)
+   ========================================================================== */
+.hero-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: var(--space-xl) var(--space-md) var(--space-lg);
+    background-color: var(--color-bg-dark);
+    overflow: hidden;
+}
+
+.hero-bg-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-secondary-green);
+    mix-blend-mode: multiply;
+    opacity: 0.85;
+    z-index: 2;
+}
+
+/* Vignette / dark overlay to build depth */
+.hero-bg-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(8,8,8,0.2) 0%, rgba(8,8,8,0.95) 95%);
+    z-index: 3;
+}
+
+.hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: grayscale(1) contrast(1.2);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 10;
+    max-width: 900px;
+    margin-left: max(2rem, calc((100vw - 1400px) / 2));
+}
+
+.tagline-badge {
+    font-family: var(--font-mono);
+    color: var(--color-text-dark);
+    background-color: var(--color-text-light);
+    padding: 6px 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    display: inline-block;
+    margin-bottom: var(--space-md);
+    transform: skewX(-10deg);
+}
+
+/* Distorted Glitch Title layout */
+.hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 15vw, 10rem);
+    line-height: 0.8;
+    letter-spacing: -4px;
+    text-transform: uppercase;
+    margin-bottom: var(--space-md);
+}
+
+.hero-title .line-1,
+.hero-title .line-2,
+.hero-title .line-3 {
+    display: block;
+    position: relative;
+    white-space: nowrap;
+}
+
+.hero-title .char {
+    display: inline-block;
+    transition: transform 0.1s ease;
+}
+
+.hero-desc {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    max-width: 600px;
+    margin-bottom: var(--space-lg);
+    color: rgba(245, 245, 245, 0.8);
+    font-family: var(--font-mono);
+}
+
+/* Large Spray Stencil text behind layout elements */
+.spray-stencil-text {
+    position: absolute;
+    font-family: var(--font-display);
+    color: rgba(255, 85, 0, 0.12);
+    font-size: 25vw;
+    pointer-events: none;
+    z-index: 4;
+    user-select: none;
+    line-height: 1;
+    letter-spacing: -10px;
+    bottom: -5%;
+    right: -5%;
+    transform: rotate(-12deg);
+}
+
+/* ==========================================================================
+   PRODUCT SPOTLIGHT (THE GEAR)
+   ========================================================================== */
+.gear-section {
+    background-color: var(--color-bg-dark);
+    border-top: 6px solid var(--color-text-light);
+    border-bottom: 6px solid var(--color-text-light);
+    padding: var(--space-lg) var(--space-md);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Radial green flare behind the skateboard spotlight */
+.gear-section::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60%;
+    height: 60%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(10,60,38,0.4) 0%, transparent 70%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.gear-header {
+    max-width: 1400px;
+    margin: 0 auto var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.gear-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr;
+    align-items: center;
+    gap: var(--space-md);
+    position: relative;
+    z-index: 5;
+}
+
+.specs-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+}
+
+/* Specification Cards: Asymmetric and Brutalist */
+.spec-card {
+    background-color: var(--color-bg-charcoal);
+    border: 3px solid var(--color-text-light);
+    padding: var(--space-md);
+    position: relative;
+    box-shadow: 8px 8px 0 0 var(--color-accent-orange);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                box-shadow 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.spec-card:hover {
+    transform: translate(-4px, -4px) rotate(0deg) !important;
+    box-shadow: 12px 12px 0 0 var(--color-text-light);
+}
+
+.spec-num {
+    position: absolute;
+    top: -1.5rem;
+    left: var(--space-md);
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--color-accent-orange);
+    background-color: var(--color-bg-dark);
+    padding: 0 8px;
+    border: 2px solid var(--color-text-light);
+}
+
+.spec-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: var(--space-xs);
+    margin-top: var(--space-xs);
+    text-transform: uppercase;
+}
+
+.spec-card p {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: rgba(245, 245, 245, 0.7);
+}
+
+/* Skateboard Deck Interactive Showcase */
+.deck-showcase-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+    height: 700px;
+}
+
+.deck-drag-zone {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: grab;
+    position: relative;
+}
+
+.deck-drag-zone:active {
+    cursor: grabbing;
+}
+
+.drag-hint {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    border: 1px solid var(--color-text-light);
+    padding: 6px 12px;
+    margin-bottom: var(--space-md);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    animation: pulseHint 2s infinite alternate;
+}
+
+@keyframes pulseHint {
+    0% { opacity: 0.4; }
+    100% { opacity: 0.8; }
+}
+
+.deck-card-wrapper {
+    position: relative;
+    width: 280px;
+    height: 600px;
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease;
+}
+
+.deck-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 4px solid var(--color-text-light);
+    box-shadow: 15px 15px 0 0 rgba(0, 0, 0, 0.7);
+    border-radius: 40px; /* Curves match actual deck ends */
+}
+
+/* Concrete shadow underneath */
+.deck-shadow {
+    position: absolute;
+    bottom: -30px;
+    left: 10%;
+    width: 80%;
+    height: 30px;
+    background: radial-gradient(ellipse, rgba(0,0,0,0.8) 0%, transparent 70%);
+    filter: blur(10px);
+    pointer-events: none;
+    transform: translateZ(-50px);
+}
+
+/* ==========================================================================
+   PRO TEAM / STREET CULTURE (THE CREDIBILITY)
+   ========================================================================== */
+.crew-section {
+    background-color: var(--color-bg-dark);
+    padding: var(--space-xl) var(--space-md);
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.crew-header {
+    margin-bottom: var(--space-xl);
+    max-width: 800px;
+}
+
+.section-subtitle {
+    font-size: 1.1rem;
+    color: rgba(245, 245, 245, 0.7);
+    margin-top: var(--space-sm);
+}
+
+.crew-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+}
+
+/* Skater Cards: Collage paper-torn layouts */
+.skater-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.skater-img-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background-color: var(--color-secondary-green);
+    border: 3px solid var(--color-text-light);
+    transition: transform 0.3s ease;
+}
+
+/* Clip paths to simulate torn edges */
+.border-torn-1 {
+    clip-path: polygon(2% 4%, 98% 1%, 95% 96%, 4% 98%);
+}
+.border-torn-2 {
+    clip-path: polygon(1% 8%, 95% 2%, 99% 94%, 2% 91%);
+}
+.border-torn-3 {
+    clip-path: polygon(4% 1%, 99% 7%, 94% 99%, 1% 95%);
+}
+
+.skater-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(1) contrast(1.15);
+    transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+/* Redundant backing overlay to give 3D torn layered look */
+.torn-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-secondary-green);
+    mix-blend-mode: multiply;
+    opacity: 0.3;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.doodle-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.skater-card:hover .skater-img-wrapper {
+    transform: scale(1.02) rotate(1deg);
+}
+
+.skater-card:hover .skater-img {
+    filter: grayscale(0.5) contrast(1.2);
+    transform: scale(1.05);
+}
+
+.skater-card:hover .torn-overlay {
+    opacity: 0.1;
+}
+
+.skater-info {
+    margin-top: var(--space-md);
+    padding: 0 var(--space-xs);
+}
+
+.skater-role {
+    font-family: var(--font-mono);
+    color: var(--color-accent-orange);
+    font-size: 0.8rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.skater-name {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 2rem;
+    line-height: 1.1;
+    margin-bottom: var(--space-xs);
+    text-transform: uppercase;
+}
+
+.skater-bio {
+    font-size: 0.85rem;
+    color: rgba(245, 245, 245, 0.6);
+}
+
+/* ==========================================================================
+   COMMUNITY CALLOUT / JOIN SECTION
+   ========================================================================== */
+.join-section {
+    padding: var(--space-xl) var(--space-md);
+    background-color: var(--color-bg-dark);
+}
+
+.join-box {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: var(--color-secondary-green);
+    border: 4px solid var(--color-text-light);
+    padding: var(--space-xl) var(--space-md);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 15px 15px 0 0 var(--color-accent-orange);
+}
+
+.inner-stencil {
+    font-size: 20vw;
+    color: rgba(255, 85, 0, 0.08);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(5deg);
+    width: 100%;
+}
+
+.join-title {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 8vw, 6rem);
+    line-height: 0.9;
+    letter-spacing: -2px;
+    text-transform: uppercase;
+    margin-bottom: var(--space-md);
+    position: relative;
+    z-index: 5;
+}
+
+.join-text {
+    max-width: 600px;
+    margin: 0 auto var(--space-lg);
+    font-family: var(--font-mono);
+    color: rgba(245, 245, 245, 0.85);
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    position: relative;
+    z-index: 5;
+}
+
+.join-form-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 600px;
+    margin: 0 auto;
+    gap: var(--space-sm);
+    position: relative;
+    z-index: 5;
+}
+
+.join-input {
+    flex-grow: 1;
+    background-color: var(--color-bg-dark);
+    border: 3px solid var(--color-text-light);
+    color: var(--color-text-light);
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    padding: 15px var(--space-sm);
+    outline: none;
+}
+
+.join-input:focus {
+    border-color: var(--color-accent-orange);
+}
+
+.submit-btn {
+    border: 3px solid var(--color-text-light);
+    box-shadow: 4px 4px 0 0 var(--color-text-light);
+}
+
+.submit-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 0 var(--color-text-light);
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+.footer {
+    background-color: var(--color-bg-dark);
+    border-top: 3px solid rgba(245, 245, 245, 0.1);
+    padding: var(--space-xl) var(--space-md) var(--space-md);
+}
+
+.footer-grid {
+    max-width: 1400px;
+    margin: 0 auto var(--space-xl);
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: var(--space-xl);
+}
+
+.brand-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.footer-logo {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 2.5rem;
+    letter-spacing: -2px;
+}
+
+.footer-credo {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: rgba(245, 245, 245, 0.5);
+    max-width: 500px;
+}
+
+.footer-col h4 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    color: var(--color-accent-orange);
+    margin-bottom: var(--space-md);
+    letter-spacing: 1px;
+}
+
+.footer-col ul {
+    list-style: none;
+}
+
+.footer-col li {
+    margin-bottom: var(--space-xs);
+}
+
+.footer-col a {
+    color: rgba(245, 245, 245, 0.6);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    transition: color 0.2s ease, padding-left 0.2s ease;
+}
+
+.footer-col a:hover {
+    color: var(--color-text-light);
+    padding-left: 5px;
+}
+
+.footer-bottom {
+    max-width: 1400px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(245, 245, 245, 0.1);
+    padding-top: var(--space-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: rgba(245, 245, 245, 0.4);
+    font-family: var(--font-mono);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN SYSTEM (MOBILE CONTROLS)
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .gear-container {
+        grid-template-columns: 1fr;
+        gap: var(--space-xl);
+    }
+    
+    .left-specs, .right-specs {
+        flex-direction: row;
+        justify-content: center;
+        gap: var(--space-md);
+        flex-wrap: wrap;
+    }
+    
+    .spec-card {
+        max-width: 300px;
+    }
+    
+    .deck-showcase-container {
+        grid-row: 1;
+        height: 550px;
+    }
+    
+    .crew-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-lg);
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --space-xl: 4rem;
+        --space-lg: 2rem;
+    }
+    
+    .header-inner {
+        padding: var(--space-sm);
+    }
+    
+    .nav-menu {
+        display: none; /* Hide standard nav on mobile to clean space */
+    }
+    
+    .hero-content {
+        margin-left: 0;
+        padding-left: var(--space-sm);
+        padding-right: var(--space-sm);
+    }
+    
+    .crew-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-xl);
+    }
+    
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+        gap: var(--space-sm);
+        text-align: center;
+    }
+    
+    .join-form-wrapper {
+        flex-direction: column;
+        gap: var(--space-xs);
+    }
+    
+    .join-input {
+        width: 100%;
+    }
+    
+    .cta-btn {
+        width: 100%;
+        box-shadow: 4px 4px 0 0 var(--color-text-light);
+    }
+    
+    /* Disable complex overlapping rotations on cards on small viewports */
+    .spec-card {
+        transform: none !important;
+        box-shadow: 6px 6px 0 0 var(--color-accent-orange) !important;
+    }
+    
+    .skater-card {
+        transform: none !important;
+    }
+}
